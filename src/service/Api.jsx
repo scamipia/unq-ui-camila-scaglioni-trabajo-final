@@ -24,3 +24,12 @@ const getQuestions = (difficulty = 'easy') => {
 const postAnswer = (body) => {
     return post(`${API_BASE_URL}/api/answer`, body)
 }
+
+
+const Api = {
+    getDifficulty,
+    getQuestions,
+    postAnswer
+}
+
+export default Api
