@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <div className="container-fluid">
         {view === 'home' && <Home goToQuestion={goToQuestion} />}
-        {view === 'question' && <Question />}
+        {view === 'question' && <Question difficulty={difficulty} />}
       </div>
     </div>
   );

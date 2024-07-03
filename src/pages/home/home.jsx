@@ -31,22 +31,18 @@ function Home({ goToQuestion }) {
       <h1>
         Welcome to Preguntados Clone!
       </h1>
-      {difficultyOptions && (
-          <>
-              <div className="difficulties-container">
-                  <div className="difficulty">
-                    {difficultyOptions.map(option => (
-                      <button 
-                        key={option} 
-                        onClick={() => handleDifficultyClick(option)}
-                        className={option === selectedOption ? 'button-selected' : 'button'}>
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-              </div>
-          </>
-      )}
+      <div className="difficulties-container">
+        <div className="difficulty">
+          {difficultyOptions.map(option => (
+            <button 
+              key={option} 
+              onClick={() => handleDifficultyClick(option)}
+              className={option === selectedOption ? 'button-selected' : 'button'}>
+              {option}
+            </button>
+          ))}
+        </div>
+      </div>
       <button onClick={startGame}>
         Start Game
       </button>
