@@ -1,11 +1,13 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import './answerModal.css'
+import './gameModal.css'
 
-const AnswerModal = ({ show, title, handleClose }) => {
+const GameModal = ({ show, title, handleClose, correctAnswer, isGameOver}) => {
+
+    const modalClassName = isGameOver ? 'game-over-modal' : (correctAnswer ? 'game-modal-correct' : 'game-modal-incorrect');
 
     return (
-        <Modal className='answer-modal' show={show} onHide={handleClose}>
+        <Modal className={modalClassName} show={show} onHide={handleClose}>
             <Modal.Header>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
@@ -18,4 +20,4 @@ const AnswerModal = ({ show, title, handleClose }) => {
     );
 };
 
-export default AnswerModal;
+export default GameModal;

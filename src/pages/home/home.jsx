@@ -37,13 +37,13 @@ function Home({ goToQuestion }) {
             <button 
               key={option} 
               onClick={() => handleDifficultyClick(option)}
-              className={option === selectedOption ? 'button-selected' : 'button'}>
+              className={option === selectedOption ? 'button button-selected' : 'button'}>
               {option}
             </button>
           ))}
         </div>
       </div>
-      <button onClick={startGame}>
+      <button className='start-button' onClick={startGame}>
         Start Game
       </button>
     </div>

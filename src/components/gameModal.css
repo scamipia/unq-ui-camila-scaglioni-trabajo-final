@@ -1,0 +1,61 @@
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.modal-content {
+  text-align: center;
+  width: 20%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%); 
+}
+
+.modal-header,
+.modal-footer {
+  border: none;
+  justify-content: center;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #333366;
+  color: #fff;
+  width: 35%;
+  transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+  background-color: #444488;
+}
+
+.game-over-modal .modal-content {
+  background-color: #410783;
+}
+
+.game-modal-correct .modal-content {
+  background-color: #28a745; 
+}
+
+.game-modal-incorrect .modal-content {
+  background-color: #dc3545; 
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 80%;
+  }
+
+  .modal-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
