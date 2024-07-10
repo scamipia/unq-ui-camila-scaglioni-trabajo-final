@@ -1,11 +1,9 @@
-# Trabajo Final Integrador - Interfaces de usuario
+# Trabajo Final Integrador - Interfaces de Usuario
 
-Como correr la aplicacion
+## Como correr la aplicación
 
-Una vez descargado el zip o clonado el repo debemos situarnos en la carpeta tfi
+Una vez descargado el zip o clonado el repo:
 
-Ejecutar el comando npm i para descargar dependencias
-
-Ejecutar npm run dev para ejecutar la aplicacion
-
-La consola nos dara la direccion para abrirla en nuestro navegador. Por ejemplo: http://localhost:5173/
+1. Ejecutar el comando `npm i` para descargar dependencias.
+2. Ejecutar `npm run dev` para ejecutar la aplicación.
+3. La consola nos dará la dirección para abrirla en nuestro navegador. Por ejemplo: `http://localhost:5173/`.
