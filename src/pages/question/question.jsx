@@ -3,56 +3,67 @@ import Api from '../../service/Api';
 import GameModal from '../../components/gameModal';
 
 const Question = ({ difficulty, goHome }) => {
-
+  
   const [actualQuestion, setActualQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [showAnswerModal, setShowAnswerModal] = useState(false);
-  const [showEndModal, setShowEndModal] = useState(false);
-  const [answer,setAnswer] = useState(null)
-  const [score, setScore] = useState(0)
+  const [showModal, setShowModal] = useState(false);
+  const [modalConfig, setModalConfig] = useState({});
+  const [score, setScore] = useState(0);
   const options = ['option1', 'option2', 'option3', 'option4'];
-
 
   useEffect(() => {
     const getQuestion = async () => {
       try {
         const response = await Api.getQuestions(difficulty)
-        setQuestionsList(response.data);
-        setActualQuestion(response.data[0]);
+        setQuestionsList(response.data)
+        setActualQuestion(response.data[0])
       } catch (error) {
-        console.error(error);
+        setModalConfig({
+          title: `An error ocurred. Please try again later`,
+        })
+        setShowModal(true)
       }
     }
     getQuestion()
   }, [difficulty])
 
   const handleSelectedAnswer = async (option) => {
-    const response = await Api.postAnswer({ questionId: actualQuestion.id, option: option });
-    setAnswer(response.data.answer)
-    if(response.data.answer) {
+    const response = await Api.postAnswer({ questionId: actualQuestion.id, option })
+    if (response.data.answer) {
       setScore(score + 1)
     }
-    setShowAnswerModal(true)
+    setModalConfig({
+      title: `The answer is: ${response.data.answer ? 'Correct' : 'Incorrect'}`,
+      handleClose: handleCloseAnswerModal,
+      correctAnswer: response.data.answer,
+    })
+    setShowModal(true)
   }
 
   const handleCloseAnswerModal = () => {
-    setShowAnswerModal(false)
+    setShowModal(false)
     nextQuestion()
   }
 
   const handleCloseEndModal = () => {
     goHome()
-    setShowEndModal(false)
-  }
+    setShowModal(false)
+  };
 
   const nextQuestion = () => {
-    const newIndex = questionIndex + 1;
+    const newIndex = questionIndex + 1
     if (questionsList.length > newIndex) {
       setQuestionIndex(newIndex)
       setActualQuestion(questionsList[newIndex])
     } else {
-      setShowEndModal(true)
+      setModalConfig({
+        title: 'Game Over',
+        handleClose: handleCloseEndModal,
+        isGameOver: true,
+        score,
+      });
+      setShowModal(true)
     }
   };
 
@@ -65,29 +76,19 @@ const Question = ({ difficulty, goHome }) => {
       <h1>Question</h1>
       <div>
         <p>{actualQuestion.question}</p>
-          {options.map(option => (
-            <button key={option} onClick={() => handleSelectedAnswer(option)}>
-              {actualQuestion[option]}
-            </button>
-          ))}
+        {options.map((option) => (
+          <button key={option} onClick={() => handleSelectedAnswer(option)}>
+            {actualQuestion[option]}
+          </button>
+        ))}
       </div>
       <h3>Score: {score}/{questionsList.length}</h3>
       <GameModal
-        show={showEndModal}
-        title={'Game Over'}
-        handleClose={handleCloseEndModal}
-        isGameOver={true}
-        score={score}
+        show={showModal}
+        {...modalConfig}
       />
-      <GameModal
-        show={showAnswerModal}
-        title={`The answer is: ${answer ? 'Correct' : 'Incorrect'}`}
-        handleClose={handleCloseAnswerModal}
-        correctAnswer={answer}
-      /> 
-
     </div>
   );
-}
+};
 
 export default Question;

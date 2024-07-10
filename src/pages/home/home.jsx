@@ -1,10 +1,12 @@
 import Api from '../../service/Api';
 import { useState, useEffect} from 'react'
 import './home.css'; 
+import GameModal from '../../components/gameModal';
 
 function Home({ goToQuestion }) {
   const [difficultyOptions, setDifficultyOptions] = useState([])
   const [selectedOption, setSelectedOption] = useState('easy');
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -12,7 +14,7 @@ function Home({ goToQuestion }) {
           const response = await Api.getDifficulty()
           setDifficultyOptions(response.data)
         } catch (error) {
-            console.error('Error fetching options:', error);
+            setShowModal(true)
         }
     };
     fetchOptions();
@@ -46,6 +48,11 @@ function Home({ goToQuestion }) {
       <button className='start-button' onClick={startGame}>
         Start Game
       </button>
+      <GameModal
+        show={showModal}
+        title={'There was a problem. Try again later'}
+        handleClose={() => {}}
+      /> 
     </div>
   );
 }
