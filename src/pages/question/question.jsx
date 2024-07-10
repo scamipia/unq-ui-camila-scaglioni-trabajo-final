@@ -10,8 +10,9 @@ const Question = ({ difficulty, goHome }) => {
   const [showAnswerModal, setShowAnswerModal] = useState(false);
   const [showEndModal, setShowEndModal] = useState(false);
   const [answer,setAnswer] = useState(null)
-
   const [score, setScore] = useState(0)
+  const options = ['option1', 'option2', 'option3', 'option4'];
+
 
   useEffect(() => {
     const getQuestion = async () => {
@@ -25,10 +26,6 @@ const Question = ({ difficulty, goHome }) => {
     }
     getQuestion()
   }, [difficulty])
-
-  useEffect(() => {
-    setAnswer(answer)
-  }, [answer])
 
   const handleSelectedAnswer = async (option) => {
     const response = await Api.postAnswer({ questionId: actualQuestion.id, option: option });
@@ -68,17 +65,19 @@ const Question = ({ difficulty, goHome }) => {
       <h1>Question</h1>
       <div>
         <p>{actualQuestion.question}</p>
-        <button onClick={() => handleSelectedAnswer("option1")}>{actualQuestion.option1}</button>
-        <button onClick={() => handleSelectedAnswer("option2")}>{actualQuestion.option2}</button>
-        <button onClick={() => handleSelectedAnswer("option3")}>{actualQuestion.option3}</button>
-        <button onClick={() => handleSelectedAnswer("option4")}>{actualQuestion.option4}</button>
+          {options.map(option => (
+            <button key={option} onClick={() => handleSelectedAnswer(option)}>
+              {actualQuestion[option]}
+            </button>
+          ))}
       </div>
-      <p>{score}/{questionsList.length}</p>
+      <h3>Score: {score}/{questionsList.length}</h3>
       <GameModal
         show={showEndModal}
         title={'Game Over'}
         handleClose={handleCloseEndModal}
         isGameOver={true}
+        score={score}
       />
       <GameModal
         show={showAnswerModal}

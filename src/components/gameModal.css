@@ -1,3 +1,4 @@
+
 .modal-dialog {
   display: flex;
   justify-content: center;
@@ -29,7 +30,7 @@
   border-radius: 5px;
   background-color: #333366;
   color: #fff;
-  width: 35%;
+  width: 80%;
   transition: background-color 0.3s ease;
 }
 
@@ -49,6 +50,11 @@
   background-color: #dc3545; 
 }
 
+.game-over-title {
+  font-size: 40px;
+  font-family: "Press Start 2P";
+}
+
 @media (max-width: 768px) {
   .modal-content {
     width: 80%;
@@ -58,4 +64,10 @@
     font-size: 0.9rem;
     padding: 8px 16px;
   }
+}
+
+.score {
+  margin-top: 10%;
+  margin-bottom: 10%;
+
 }
